@@ -1,6 +1,7 @@
 const { prompt } = require('enquirer');
 const Handlebars = require('handlebars');
 const fs = require('fs');
+const mkdirp = require('mkdirp');
 
 async function programName() {
      return  await prompt([
@@ -22,7 +23,8 @@ async function programName() {
 async function handlebarCompiler() {
    const data = await programName();
    //console.log(await programName());
-
+   
+   fs.mkdirSync(`./${data.programName}`);
    //console.log('a');
    fs.readdir("./templates/", function(err, items) {
    	if (err) throw err;
@@ -36,11 +38,11 @@ async function handlebarCompiler() {
 			//console.log('c');
 			//console.log(currentFile);
 			let source = contents.toString();
-			console.log(source);
+			//console.log(source);
 			let template = Handlebars.compile(source);
 			let result = template(data);
-			console.log(result);
-			fs.writeFile("./"+currentFile, result, function(err, contents) {
+			//console.log(result);
+			fs.writeFile(`./${data.programName}/{currentFile}`, result, function(err, contents) {
 				if (err) throw err
 				console.log(currentFile+" generated")
 			});

@@ -3,7 +3,7 @@ const Handlebars = require('handlebars');
 const fs = require('fs');
 
 async function programName() {
-     const programName = await prompt([
+     return  await prompt([
 	{
        type: 'input',
        name: 'programName', 
@@ -15,7 +15,6 @@ async function programName() {
       message: 'What is the description of the program?'
        } 
     ]); 
-    console.log(programName);     
 }
 
 

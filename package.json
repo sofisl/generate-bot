@@ -1,7 +1,7 @@
 {
-  "name": "",
+  "name": "helloworld",
   "version": "1.0.0",
-  "description": "",
+  "description": "helloworld",
   "private": true,
   "author": "Google Inc.",
   "license": "Apache-2.0",
@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "compile": "tsc -p .",
-    "start": "probot run ./build/src/.js",
+    "start": "probot run ./build/src/helloworld.js",
     "start:local": "node ./build/src/local.js",
     "prepare": "npm run compile",
     "pretest": "npm run compile",

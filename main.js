@@ -18,7 +18,7 @@ async function programName() {
     ]); 
 }
 
-
+/*
 
 async function handlebarCompiler() {
    const data = await programName();
@@ -52,7 +52,7 @@ async function handlebarCompiler() {
     });
 }
 
-
+*/
 //handlebarCompiler();
 
 
@@ -66,20 +66,20 @@ async function recursiveCompiler() {
 	let currentDirectory = `../$data.programName}/`
 
 	let readAllFiles = function(dir, filelist) {
-		let files = fs.readdirSync("./templates/")
+		let files = fs.readdirSync("./templates/");
 		let filelist = filelist || [];
-		let currentDirectory = `../$data.programName}/`
 		files.forEach(function(file) {
 			if (fs.statSync(dir+file).isDirectory()) {
 				filelist = readAllFiles(path.join(dir+file), filelist);
-				currentDirectory = path.join(`../$data.programName}/`, dir+file)
+				currentDirectory = path.join(currentDirectory, dir+file);
 				fs.mkdirSync(currentDirectory);
 			}
 		else {
 			filelist.push(file);
-			fs.writeFile(path.join(currentDirectory, file);
+			fs.writeFile(path.join(currentDirectory, file));
 		}
-	});
+		})
+	};
 };
 
 recursiveCompiler();

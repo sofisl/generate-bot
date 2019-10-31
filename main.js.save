@@ -34,7 +34,7 @@ async function handlebarCompiler() {
    	for (var i=0; i<items.length; i++) {
 		//console.log(items.length);
 		let currentFile = items[i];
-		fs.readFile(path.join(path.dirname(),currentFile), function(err, contents) {
+		fs.readFile(path.join(path.dirname().toString,currentFile), function(err, contents) {
 			if (err) throw err
 			//console.log('c');
 			//console.log(currentFile);
@@ -53,33 +53,29 @@ async function handlebarCompiler() {
 }
 
 
-//handlebarCompiler();
+handlebarCompiler();
 
 
 
 
 async function recursiveCompiler() {
 	const data = await programName();
-	fs.mkdirSync(`../$data.programName}`);
-	console.log(`data.programName}`+ "generated");
 
-	let currentDirectory = `../$data.programName}/`
-
+	fs.mkdirSync(`../${data.programName}`);
+ 	console.log(`${data.programName}`+" generated");
+	
 	let readAllFiles = function(dir, filelist) {
 		let files = fs.readdirSync("./templates/")
 		let filelist = filelist || [];
-		let currentDirectory = `../$data.programName}/`
+		let writtenDirectory = `../${data.programName}/
 		files.forEach(function(file) {
 			if (fs.statSync(dir+file).isDirectory()) {
-				filelist = readAllFiles(path.join(dir+file), filelist);
-				currentDirectory = path.join(`../$data.programName}/`, dir+file)
-				fs.mkdirSync(currentDirectory);
+			      filelist = readAllFiles(path.join(dir+file), filelist);
 			}
 		else {
 			filelist.push(file);
-			fs.writeFile(path.join(currentDirectory, file);
 		}
 	});
-};
-
-recursiveCompiler();
+	return filelist;
+    };	
+		 

@@ -52,6 +52,7 @@ function creatingBotFiles(dirname, data) {
 			})
 	};
 	readAllFiles(dirname, mkDir);
+	return `${data.fileLocation}`;
 };
 
 module.exports = creatingBotFiles;

@@ -69,7 +69,7 @@ async function creatingBotFiles() {
 	fs.mkdirSync(`../${data.programName}`);
 	console.log(`${data.programName}`+ " generated");
 
-	let currentDirectory = `../${data.programName}/`
+	let dirname = `../${data.programName}/`
 
 	let readAllFiles = function(dirname, filelist) {
 		console.log('a');
@@ -79,14 +79,14 @@ async function creatingBotFiles() {
 		console.log('b');
 			if (fs.statSync(path.join(path.dirname(file),file)).isDirectory()) {
 				console.log('c');
-				currentDirectory = path.join(path.dirname(file), file);
-				fs.mkdirSync(currentDirectory);
-				readAllFiles(currentDirectory, filelist);
+				currentDirectory = path.join(dirname, file);
+				fs.mkdirSync();
+				readAllFiles(path.dirname(file), filelist);
 			}
 		else {
 			console.log('d');
 			filelist.push(file);
-			fs.writeFileSync(path.join(dirname(file), file));
+			fs.writeFileSync(path.join(path.dirname(file), file));
 		}
 		})
 	};

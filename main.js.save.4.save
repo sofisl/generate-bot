@@ -70,27 +70,27 @@ async function creatingBotFiles() {
 	console.log(`${data.programName}`+ " generated");
 
 	let dirname = "./templates/"
-	let mkDir = `../${data.programName}`
 
-	let readAllFiles = function(dirname) {
+	let readAllFiles = function(dirname, filelist) {
 		console.log('a');
 		let files = fs.readdirSync(dirname);
+		filelist = filelist || [];
 		files.forEach(function(file) {
 		console.log('b');
 			if (fs.statSync(path.join(dirname, file).isDirectory()) {
 				console.log('c');
 				dirname = path.join(dirname, file);
-				mkDir = path.join(mkDir, file);
-				fs.mkdirSync(mkDir);
-				readAllFiles(dirname);
+				fs.mkdirSync(path.join(`../${data.programName}`,file);
+				readAllFiles(path.join(dirname, file), filelist);
 			}
 		else {
 			console.log('d');
-			fs.writeFileSync(path.join(mkDir, file));
+			fs.writeFileSync(path.join(`../${data.programName}`, file));
 		}
 		})
 	};
-	readAllFiles(dirname);
+	let filelist = [];
+	readAllFiles("./templates/", filelist);
 };
 
 

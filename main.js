@@ -79,7 +79,7 @@ async function creatingBotFiles() {
 		console.log('b');
 		let readName = path.join(dirname, file);
 		let writeName = path.join(mkDir, file);
-			if (fs.statSync(name).isDirectory()) {
+			if (fs.statSync(readName).isDirectory()) {
 				console.log('c');
 				fs.mkdirSync(writeName);
 				readAllFiles(readName);

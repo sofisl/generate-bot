@@ -3,7 +3,7 @@ const Handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path')
 
-async function collectUserInput() {
+async function programName() {
      return  await prompt([
 	{
        type: 'input',
@@ -14,13 +14,7 @@ async function collectUserInput() {
       type: 'input', 
       name: 'description', 
       message: 'What is the description of the program?'
-       },
-	{
-	type: 'input',
-	name: 'fileLocation', 
-	message: 'Where do you want to save this program?'
-	//TODO: figure out how to implement this specification in file writing function 
-	}
+       } 
     ]); 
 }
 
@@ -64,36 +58,27 @@ async function handlebarCompiler() {
 
 
 
-async function creatingBotFiles() {
-	const data = await collectUserInput();
-	fs.mkdirSync(`../${data.programName}`);
-	console.log(`${data.programName}`+ " generated");
+async function recursiveCompiler() {
+	const data = await programName();
+	fs.mkdirSync(`../$data.programName}`);
+	console.log(`data.programName}`+ "generated");
 
-	let dirname = `../${data.programName}/`
+	let currentDirectory = `../$data.programName}/`
 
-	let readAllFiles = function(dirname, filelist) {
-		console.log('a');
-		let files = fs.readdirSync(dirname);
-		filelist = filelist || [];
+	let readAllFiles = function(dir, filelist) {
+		let files = fs.readdirSync("./templates/");
+		let filelist = filelist || [];
 		files.forEach(function(file) {
-		console.log('b');
-		console.log(path.join(path.dirname(file),file))
-			if (fs.statSync(path.join(path.dirname(file),file)).isDirectory()) {
-				console.log('c');
-				currentDirectory = path.join(path.dirname(file), file);
+			if (fs.statSync(dir+file).isDirectory()) {
+				filelist = readAllFiles(path.join(dir+file), filelist);
+				currentDirectory = path.join(currentDirectory, dir+file);
 				fs.mkdirSync(currentDirectory);
-				readAllFiles(currentDirectory, filelist);
 			}
 		else {
-			console.log('d');
 			filelist.push(file);
-			fs.writeFileSync(path.join(path.dirname(file), file));
-		}
-		})
-	};
-	let filelist = [];
-	readAllFiles("./templates/", filelist);
+			fs.writeFile(path.join(currentDirectory, file));
+		}})
+	})
 };
 
-
-creatingBotFiles();
+recursiveCompiler();

@@ -25,13 +25,11 @@ async function collectUserInput() {
 
 
 
-async function creatingBotFiles() {
-	const data = await collectUserInput();
+function creatingBotFiles(dirname, data) {
 
 	fs.mkdirSync(`${data.fileLocation}`);
 	console.log(`${data.fileLocation}`+ " generated");
 
-	let dirname = "./templates/"
 	let mkDir = `${data.fileLocation}`
 
 	let readAllFiles = function(dirNameRead, dirNameWrite) {
@@ -56,5 +54,5 @@ async function creatingBotFiles() {
 	readAllFiles(dirname, mkDir);
 };
 
-
-creatingBotFiles();
+module.exports = creatingBotFiles;
+creatingBotFiles("./templates/", collectUserInput());

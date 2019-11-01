@@ -4,7 +4,7 @@ const path = require("path");
 
 async function recursiveCompiler(opts) {
   const root = opts.root || "./";
-  fs.mkdirSync(path.resolve(root, `${opts.programName}`), {
+  fs.mkdirSync(path.resolve(root, `./${opts.programName}`), {
     recursive: true
   });
   /*console.log(`${opts.programName}` + "generated");

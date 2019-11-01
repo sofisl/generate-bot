@@ -18,75 +18,38 @@ async function collectUserInput() {
 	{
 	type: 'input',
 	name: 'fileLocation', 
-	message: 'Where do you want to save this program?'
-	//TODO: figure out how to implement this specification in file writing function 
+	message: 'What path do you want to save this in (relative to /generate-bot)?'
 	}
     ]); 
 }
-
-/*
-
-async function handlebarCompiler() {
-   const data = await programName();
-   //console.log(await programName());
-   
-   fs.mkdirSync(`../${data.programName}`);
-   console.log(`${data.programName}`+" generated")
-   //console.log('a');
-   fs.readdir("./templates/", function(err, items) {
-   	if (err) throw err;
-	//console.log('b');
-	//console.log(items.length);
-   	for (var i=0; i<items.length; i++) {
-		//console.log(items.length);
-		let currentFile = items[i];
-		fs.readFile(path.join(path.dirname(),currentFile), function(err, contents) {
-			if (err) throw err
-			//console.log('c');
-			//console.log(currentFile);
-			let source = contents.toString();
-			//console.log(source);
-			let template = Handlebars.compile(source);
-			let result = template(data);
-			//console.log(result);
-			fs.writeFile(`../${data.programName}/${currentFile}`, result, function(err, contents) {
-				if (err) throw err
-				console.log(currentFile+" generated")
-			});
-		 });
-	}  
-    });
-}
-
-*/
-//handlebarCompiler();
-
 
 
 
 async function creatingBotFiles() {
 	const data = await collectUserInput();
-	fs.mkdirSync(`../${data.programName}`);
-	console.log(`${data.programName}`+ " generated");
+
+	fs.mkdirSync(`${data.fileLocation}`);
+	console.log(`${data.fileLocation}`+ " generated");
 
 	let dirname = "./templates/"
-	let mkDir = `../${data.programName}/`
+	let mkDir = `${data.fileLocation}`
 
 	let readAllFiles = function(dirNameRead, dirNameWrite) {
-		console.log('a');
 		let files = fs.readdirSync(dirNameRead);
 		files.forEach(function(file) {
-		console.log('b');
 		let readName = path.join(dirNameRead, file);
 		let writeName = path.join(dirNameWrite, file);
 			if (fs.statSync(readName).isDirectory()) {
-				console.log('c');
 				fs.mkdirSync(writeName);
+				console.log(writeName+" generated");
 				readAllFiles(readName, writeName);
 			}
 			else {
-				console.log('d');
-				fs.writeFileSync(writeName);
+				let fileContents = fs.readFileSync(readName);
+				let template = Handlebars.compile(fileContents.toString());
+				let result = template(data); 
+				console.log(writeName+" generated");
+				fs.writeFileSync(writeName, result);
 			}
 			})
 	};

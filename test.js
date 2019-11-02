@@ -8,25 +8,20 @@ TODO:
 */
 
 const GenerateBot = require('./main.js');
-const expect = require('chai');
+const { expect } = require('chai');
 const fs = require('fs');
 const recursive = require('recursive-readdir');
 const rimraf = require('rimraf');
 
 describe("file structure", () => {
 	it('checks that file structure carries over', async() => {
-		let originalStack = [];
-		let createdStack = [];
-		recursive("./templates", function(err, files) {
-			originalStack.push(files);
-		});
-		console.log(originalStack);
-		recursive(GenerateBot.creatingFilesBot('./templates', {programName: 'programName', 
+		const originalStack = await recursive("./templates");
+		let createdStack = await recursive(GenerateBot('./templates', {programName: 'programName', 
 			    description: 'description', 
-			    fileLocation: './tmp'}), function(err, files) {
-			    createdStack.push(files);
-		}) 		
-		console.log(createdStack);
+			    fileLocation: './tmp'}));
+		createdStack = createdStack.map(contents => {return contents.replace(/tmp/, 'templates')});
+		console.log("OG "+originalStack);
+		console.log("CS "+createdStack);
 	expect(originalStack).to.eql(createdStack);
 	});
 			

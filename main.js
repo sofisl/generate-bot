@@ -25,7 +25,7 @@ async function collectUserInput() {
 
 
 
-function creatingBotFiles(dirname, data) {
+module.exports = function creatingBotFiles(dirname, data) {
 
 	fs.mkdirSync(`${data.fileLocation}`);
 	console.log(`${data.fileLocation}`+ " generated");
@@ -55,5 +55,4 @@ function creatingBotFiles(dirname, data) {
 	return `${data.fileLocation}`;
 };
 
-module.exports.creatingBotFiles = creatingBotFiles;
 //creatingBotFiles("./templates/", collectUserInput());

@@ -55,5 +55,5 @@ function creatingBotFiles(dirname, data) {
 	return `${data.fileLocation}`;
 };
 
-module.exports = creatingBotFiles;
-creatingBotFiles("./templates/", collectUserInput());
+module.exports.creatingBotFiles = creatingBotFiles;
+//creatingBotFiles("./templates/", collectUserInput());

@@ -7,7 +7,7 @@ TODO:
 -
 */
 
-const GenerateBot = require('./');
+const GenerateBot = require('./main.js');
 const expect = require('chai');
 const fs = require('fs');
 const recursive = require('recursive-readdir');
@@ -20,14 +20,17 @@ describe("file structure", () => {
 		recursive("./templates", function(err, files) {
 			originalStack.push(files);
 		});
-		recursive(GenerateBot('./templates', {programName: 'programName', 
+		console.log(originalStack);
+		recursive(GenerateBot.creatingFilesBot('./templates', {programName: 'programName', 
 			    description: 'description', 
-			    fileLocation: './templates'}), function(err, files) {
+			    fileLocation: './tmp'}), function(err, files) {
 			    createdStack.push(files);
-		}); 		
+		}) 		
+		console.log(createdStack);
 	expect(originalStack).to.eql(createdStack);
-				
+	});
+			
   	afterEach(() => {
-    		rimraf.sync('./templates');
+    		rimraf.sync('./tmp');
   		});
 });

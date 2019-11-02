@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "fix": "eslint . --fix",
-    "test": "c8 --reporter=text --reporter=html mocha test.js"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "rimraf": "^3.0.0"
   },
   "dependencies": {
-    "enquirer": "^2.3.2"
+    "enquirer": "^2.3.2",
+    "recursive-readdir": "^2.2.2"
   }
 }

@@ -1,11 +1,31 @@
 const { prompt } = require('enquirer');
 const Handlebars = require('handlebars');
 const fs = require('fs');
-const path = require('path')
-//const exports = module.exports = {};
+const path = require('path');
+
+function checkValidity(testString) {
+ 	let isValid = true;
+	const invalidChars = ['-', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ','];
+	let string = JSON.stringify(testString)
+	for (var i=0; i<invalidChars.length; i++) {
+		if (string.includes(invalidChars[i])) {
+			isValid = false;
+			console.log("You used an invalid character, like a hyphen or an integer. Please try again.");
+			break;
+		}
+	}
+	if (isValid && (!(testString.programName)|| !(testString.fileLocation))) {
+		isValid = false;
+		console.log("You forgot to name your program and/or your file location. Please try again.");
+	}
+	return isValid;
+}
 
 exports.collectUserInput = async function() {
-     return  await prompt([
+let isValid = false;
+let input = null;
+while (!isValid) {
+    input =  await prompt([
 	{
        type: 'input',
        name: 'programName', 
@@ -21,7 +41,13 @@ exports.collectUserInput = async function() {
 	name: 'fileLocation', 
 	message: 'What path do you want to save this in (relative to /generate-bot)?'
 	}
-    ]); 
+    ]);
+
+	isValid = checkValidity(input);
+}
+
+	console.log(await input);
+	return await input;
 }
 
 
@@ -52,7 +78,6 @@ exports.creatingBotFiles = function(dirname, data) {
 			})
 	};
 	readAllFiles(dirname, mkDir);
-	return `${data.fileLocation}`;
+	//return `${data.fileLocation}`;
 };
 
-//creatingBotFiles("./templates/", collectUserInput());

@@ -18,9 +18,10 @@ const snapshot = require('snap-shot');
 describe("file structure", () => {
 	it('checks that file structure carries over', async() => {
 		const originalStack = await recursive('./templates');
-		let createdStack = await recursive(GenerateBot.creatingBotFiles('./templates', {programName: 'programName', 
+		GenerateBot.creatingBotFiles('./templates', {programName: 'programName', 
 			    description: 'description', 
-			    fileLocation: './tmp'}));
+			    fileLocation: './tmp'});
+		let createdStack = await recursive('./tmp');
 		createdStack = createdStack.map(contents => {return contents.replace(/tmp/, 'templates')});
 		console.log("OG "+originalStack);
 		console.log("CS "+createdStack);
@@ -30,16 +31,25 @@ describe("file structure", () => {
   	afterEach(() => {
     		rimraf.sync('./tmp');
   		});
-	/*
-        it('checks that the file content carries over', () => {
-		return snapshot(GenerateBot.creatingBotFiles('./templates', {programName: 'helloWorld', 
+	
+        it('checks that the file content carries over', async() => {
+		GenerateBot.creatingBotFiles('./templates', {programName: 'helloWorld', 
 			description: 'says hi',
-			fileLocation: './tmp'}));
+			fileLocation: './tmp'});
+		const files = await recursive('./tmp');
+		let stringOfFiles = null;
+		for (let i=0; i<files.length; i++) {
+			stringOfFiles += fs.readFileSync(files[i], 'utf8')
+		};
+		console.log(stringOfFiles);
+		return snapshot(stringOfFiles);
+		//implement snapshot logic here that reads the contents of the files recursively
 	});
 
 	 afterEach(() => {
 		rimraf.sync('./tmp');
 		});
-*/
+
 
 });
+

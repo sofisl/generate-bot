@@ -2,8 +2,9 @@ const { prompt } = require('enquirer');
 const Handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path')
+//const exports = module.exports = {};
 
-async function collectUserInput() {
+exports.collectUserInput = async function() {
      return  await prompt([
 	{
        type: 'input',
@@ -25,8 +26,8 @@ async function collectUserInput() {
 
 
 
-module.exports = function creatingBotFiles(dirname, data) {
-
+exports.creatingBotFiles = async function(dirname, data) {
+	data = await data;
 	fs.mkdirSync(`${data.fileLocation}`);
 	console.log(`${data.fileLocation}`+ " generated");
 

@@ -36,6 +36,8 @@
   "dependencies": {
     "enquirer": "^2.3.2",
     "expect": "^24.9.0",
-    "recursive-readdir": "^2.2.2"
+    "recursive-readdir": "^2.2.2",
+    "snap-shot": "^2.17.0",
+    "span-shot": "2.7.1"
   }
 }

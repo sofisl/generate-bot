@@ -1,3 +1,4 @@
+
 	/*
 TODO: 
 -data validation test: make sure names has no hyphens or integers and nothing is null (also add data validation)
@@ -12,10 +13,11 @@ const { expect } = require('chai');
 const fs = require('fs');
 const recursive = require('recursive-readdir');
 const rimraf = require('rimraf');
+const snapshot = require('snap-shot');
 
 describe("file structure", () => {
 	it('checks that file structure carries over', async() => {
-		const originalStack = await recursive("./templates");
+		const originalStack = await recursive('./templates');
 		let createdStack = await recursive(GenerateBot.creatingBotFiles('./templates', {programName: 'programName', 
 			    description: 'description', 
 			    fileLocation: './tmp'}));
@@ -28,4 +30,16 @@ describe("file structure", () => {
   	afterEach(() => {
     		rimraf.sync('./tmp');
   		});
+	/*
+        it('checks that the file content carries over', () => {
+		return snapshot(GenerateBot.creatingBotFiles('./templates', {programName: 'helloWorld', 
+			description: 'says hi',
+			fileLocation: './tmp'}));
+	});
+
+	 afterEach(() => {
+		rimraf.sync('./tmp');
+		});
+*/
+
 });

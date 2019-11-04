@@ -1,0 +1,2 @@
+xports['checks that the file content carries over 1'] = "./tmp"
+

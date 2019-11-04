@@ -1,3 +1,7 @@
 GenerateBot = require('./main.js');
 
-GenerateBot.creatingBotFiles('./templates', GenerateBot.collectUserInput());
+async function prompt() {
+	GenerateBot.creatingBotFiles('./templates', await GenerateBot.collectUserInput());
+}
+
+prompt();

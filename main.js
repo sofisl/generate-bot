@@ -26,8 +26,7 @@ exports.collectUserInput = async function() {
 
 
 
-exports.creatingBotFiles = async function(dirname, data) {
-	data = await data;
+exports.creatingBotFiles = function(dirname, data) {
 	fs.mkdirSync(`${data.fileLocation}`);
 	console.log(`${data.fileLocation}`+ " generated");
 

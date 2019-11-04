@@ -53,3 +53,18 @@ describe("file structure", () => {
 
 });
 
+describe("user input", () => {
+	it('checks that user input is being checked correctly', () => {
+		let validityWorkingWell = true;
+		let hyphenTest = GenerateBot.checkValidity({programName: "does-not-pass", description: "pass", fileLocation: "pass" });
+		let nullTest = GenerateBot.checkValidity({programName: null, description: "pass", fileLocation: null});
+		let integerTest = GenerateBot.checkValidity({programName: "pass", description: "d3oesN0tP4SS", fileLocation: "pass"});
+	if (!hyphenTest && !nullTest && !integerTest) {
+		validityWorkingWell = true;
+	} else {
+		validityWorkingWell = false;
+	}
+	expect(validityWorkingWell).to.be.true; 
+	});
+});
+

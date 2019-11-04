@@ -3,9 +3,9 @@ const Handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
 
-function checkValidity(testString) {
+exports.checkValidity = function(testString) {
  	let isValid = true;
-	const invalidChars = ['-', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ','];
+	const invalidChars = ['-', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 	let string = JSON.stringify(testString)
 	for (var i=0; i<invalidChars.length; i++) {
 		if (string.includes(invalidChars[i])) {
@@ -14,10 +14,13 @@ function checkValidity(testString) {
 			break;
 		}
 	}
+	
 	if (isValid && (!(testString.programName)|| !(testString.fileLocation))) {
 		isValid = false;
 		console.log("You forgot to name your program and/or your file location. Please try again.");
 	}
+	
+	console.log(testString);
 	return isValid;
 }
 
@@ -43,7 +46,7 @@ while (!isValid) {
 	}
     ]);
 
-	isValid = checkValidity(input);
+	isValid = exports.checkValidity(input);
 }
 
 	console.log(await input);
@@ -78,6 +81,5 @@ exports.creatingBotFiles = function(dirname, data) {
 			})
 	};
 	readAllFiles(dirname, mkDir);
-	//return `${data.fileLocation}`;
 };
 
